@@ -5,6 +5,7 @@ import { StoreProvider } from "./store";
 import App from "./App";
 import "./styles.css";
 import "./institutional.css";
+import "./network.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>

@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { areas, priorities, statuses, technicians } from "./data";
 import { event, useStore } from "./store";
+import { TechNetwork } from "./components/TechNetwork";
 import type { Area, NewTicket, Priority, Ticket } from "./types";
 const fmt = (x: string) =>
   new Intl.DateTimeFormat("es-AR", {
@@ -49,6 +50,38 @@ const pRank: Record<Priority, number> = {
   alta: 2,
   crítica: 3,
 };
+function Welcome() {
+  return (
+    <main className="welcome-screen">
+      <TechNetwork intensity="hero" />
+      <div className="welcome-glow" aria-hidden="true" />
+      <section className="welcome-content">
+        <div className="welcome-mark" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="welcome-kicker">NEXO · DIGITAL NETWORK</div>
+        <h1>
+          NE<span>X</span>O
+        </h1>
+        <p>
+          Plataforma de gestión y trazabilidad de solicitudes de soporte
+          tecnológico
+        </p>
+        <Link className="btn welcome-button" to="/proyecto">
+          Ingresar al proyecto <ArrowRight />
+        </Link>
+        <div className="welcome-institution">
+          ISPC <i /> Ctrl+Estudio <i /> Comisión A <i /> 2026
+        </div>
+      </section>
+      <div className="welcome-orbit orbit-one" aria-hidden="true" />
+      <div className="welcome-orbit orbit-two" aria-hidden="true" />
+    </main>
+  );
+}
 function Landing() {
   const [poster, setPoster] = useState<{ src: string; title: string } | null>(
     null,
@@ -68,8 +101,9 @@ function Landing() {
   };
   return (
     <div className="landing">
+      <TechNetwork intensity="subtle" className="landing-network" />
       <header className="land-nav">
-        <Link to="/" className="brand">
+        <Link to="/proyecto" className="brand">
           <span>N</span>NEXO
         </Link>
         <img
@@ -83,13 +117,17 @@ function Landing() {
           <a href="#coso">Control interno</a>
           <a href="#equipo">Equipo</a>
           <a href="#material">Material</a>
+          <Link to="/" className="cover-link">
+            Portada
+          </Link>
         </nav>
         <Link className="btn primary" to="/demo">
-          Explorar NEXO <ArrowRight size={17} />
+          Explorar simulador <ArrowRight size={17} />
         </Link>
       </header>
       <main>
         <section className="hero">
+          <TechNetwork intensity="hero" className="hero-network" />
           <div>
             <div className="eyebrow">ISPC · Proyecto académico 2026</div>
             <h1>
@@ -101,7 +139,7 @@ function Landing() {
             </p>
             <div className="actions">
               <Link className="btn primary big" to="/demo">
-                Explorar NEXO <ArrowRight />
+                Explorar simulador <ArrowRight />
               </Link>
               <a className="btn ghost big" href="#problema">
                 Conocer el caso
@@ -483,9 +521,14 @@ function Shell({ children }: { children: ReactNode }) {
             <span>Datos ficticios · sin autenticación real</span>
           </div>
         </div>
-        <Link to="/" className="back">
-          ← Volver al sitio
-        </Link>
+        <div className="side-links">
+          <Link to="/proyecto" className="back primary-back">
+            ← Volver al inicio
+          </Link>
+          <Link to="/" className="back cover-back">
+            Ir a la portada
+          </Link>
+        </div>
       </aside>
       <div className="app-main">
         <header>
@@ -1464,9 +1507,10 @@ function Demo() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Landing />} />
+      <Route path="/" element={<Welcome />} />
+      <Route path="/proyecto" element={<Landing />} />
       <Route path="/demo/*" element={<Demo />} />
-      <Route path="*" element={<Landing />} />
+      <Route path="*" element={<Welcome />} />
     </Routes>
   );
 }

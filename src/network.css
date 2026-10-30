@@ -1,0 +1,269 @@
+.tech-network {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.welcome-screen {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at 50% 45%, #0c3765 0, transparent 35%),
+    linear-gradient(145deg, #020b18, #06172e 52%, #04111f);
+  color: #fff;
+  isolation: isolate;
+}
+.welcome-screen .tech-network {
+  z-index: 0;
+  opacity: 0.92;
+}
+.welcome-glow {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, #1175bb22, transparent 32%),
+    linear-gradient(90deg, transparent, #0c85ba0d, transparent);
+  animation: network-breathe 9s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.welcome-content {
+  position: relative;
+  z-index: 2;
+  width: min(880px, 100%);
+  text-align: center;
+}
+.welcome-kicker {
+  margin-bottom: 1.1rem;
+  color: #65dce8;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+}
+.welcome-content h1 {
+  margin: 0;
+  font: 800 clamp(5rem, 17vw, 10rem)/0.85 Manrope;
+  letter-spacing: -0.075em;
+  text-shadow: 0 0 50px #127bc944;
+}
+.welcome-content h1 span {
+  color: #31d8e6;
+  text-shadow: 0 0 40px #24cce88c;
+}
+.welcome-content p {
+  max-width: 720px;
+  margin: 2rem auto;
+  color: #c4d5e5;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  line-height: 1.7;
+}
+.welcome-button {
+  padding: 1rem 1.5rem;
+  color: #04152b;
+  background: linear-gradient(135deg, #7df5f6, #22c8df);
+  box-shadow: 0 12px 40px #20cfe54d;
+}
+.welcome-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px #20cfe566;
+}
+.welcome-institution {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 3rem;
+  color: #7690a9;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.welcome-institution i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #2fd0df;
+}
+.welcome-mark {
+  position: relative;
+  width: 100px;
+  height: 60px;
+  margin: 0 auto 2.2rem;
+}
+.welcome-mark:before,
+.welcome-mark:after {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 20px;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, #20cfe7, #3b89e8);
+  transform: rotate(25deg);
+  box-shadow: 0 0 10px #24cde3;
+}
+.welcome-mark:after {
+  transform: rotate(-25deg);
+}
+.welcome-mark span {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #41deec;
+  border-radius: 50%;
+  background: #07182f;
+  box-shadow: 0 0 18px #26d3e2;
+}
+.welcome-mark span:first-child {
+  left: 8px;
+  top: 23px;
+}
+.welcome-mark span:nth-child(2) {
+  left: 43px;
+  top: 0;
+}
+.welcome-mark span:nth-child(3) {
+  right: 8px;
+  top: 23px;
+}
+.welcome-mark span:last-child {
+  left: 43px;
+  bottom: 0;
+}
+.welcome-orbit {
+  position: absolute;
+  z-index: 1;
+  width: 65vw;
+  aspect-ratio: 1;
+  border: 1px solid #3cd5e00b;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.orbit-one {
+  left: -35vw;
+  top: -42vw;
+}
+.orbit-two {
+  right: -38vw;
+  bottom: -44vw;
+}
+.landing {
+  position: relative;
+  isolation: isolate;
+}
+.landing-network {
+  position: fixed;
+  z-index: 0;
+  opacity: 0.2;
+}
+.landing:before {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  background: linear-gradient(145deg, #f8fbffeb, #edf6fbe8);
+  pointer-events: none;
+}
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.hero-network {
+  z-index: 0;
+  opacity: 0.38;
+}
+.hero:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, #f7fbfff2 0%, #f3f9fce0 48%, #e8f7fbba);
+  pointer-events: none;
+}
+.hero > div:not(.hero-network) {
+  position: relative;
+  z-index: 2;
+}
+.cover-link {
+  color: #1671c8 !important;
+}
+.side-links {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+.primary-back {
+  padding: 0.7rem;
+  border: 1px solid #2c5578;
+  border-radius: 8px;
+  color: #fff !important;
+  background: #123655;
+}
+.cover-back {
+  margin-top: 0 !important;
+}
+.land-nav,
+.landing main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+@keyframes network-breathe {
+  from {
+    opacity: 0.58;
+    transform: scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+@media (max-width: 900px) {
+  .welcome-orbit {
+    display: none;
+  }
+  .cover-link {
+    display: none;
+  }
+  .hero-network {
+    opacity: 0.26;
+  }
+}
+@media (max-width: 620px) {
+  .welcome-screen {
+    padding: 1.4rem;
+  }
+  .welcome-mark {
+    transform: scale(0.85);
+    margin-bottom: 1.5rem;
+  }
+  .welcome-content p {
+    margin: 1.5rem auto;
+  }
+  .welcome-institution {
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+  .welcome-button {
+    width: 100%;
+    max-width: 310px;
+  }
+  .hero-network {
+    opacity: 0.2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-glow {
+    animation: none;
+  }
+  .welcome-button {
+    transition: none;
+  }
+}
