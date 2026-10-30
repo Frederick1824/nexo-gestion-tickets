@@ -102,7 +102,11 @@ function Landing() {
   };
   return (
     <div className="landing">
-      <TechNetwork intensity="hero" className="landing-network" />
+      <TechNetwork
+        intensity="hero"
+        variant="light"
+        className="landing-network"
+      />
       <header className="land-nav">
         <Link to="/proyecto" className="brand">
           <span>N</span>NEXO

@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 interface TechNetworkProps {
   intensity?: "hero" | "subtle";
+  variant?: "dark" | "light";
   className?: string;
 }
 
@@ -16,6 +17,7 @@ interface NodePoint {
 
 export function TechNetwork({
   intensity = "hero",
+  variant = "dark",
   className = "",
 }: TechNetworkProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -88,12 +90,19 @@ export function TechNetwork({
           if (distance < connectionDistance) {
             const opacity =
               (1 - distance / connectionDistance) *
-              (intensity === "hero" ? 0.28 : 0.1);
+              (intensity === "hero"
+                ? variant === "light"
+                  ? 0.76
+                  : 0.28
+                : 0.1);
             context.beginPath();
             context.moveTo(first.x, first.y);
             context.lineTo(second.x, second.y);
-            context.strokeStyle = `rgba(63, 210, 231, ${opacity})`;
-            context.lineWidth = 0.65;
+            context.strokeStyle =
+              variant === "light"
+                ? `rgba(18, 111, 190, ${opacity})`
+                : `rgba(63, 210, 231, ${opacity})`;
+            context.lineWidth = variant === "light" ? 1.05 : 0.65;
             context.stroke();
             connections.push([first, second]);
           }
@@ -109,9 +118,12 @@ export function TechNetwork({
           const x = start.x + (end.x - start.x) * progress;
           const y = start.y + (end.y - start.y) * progress;
           context.beginPath();
-          context.arc(x, y, 1.4, 0, Math.PI * 2);
-          context.fillStyle = "rgba(154, 246, 255, .8)";
-          context.shadowColor = "#38d9ef";
+          context.arc(x, y, variant === "light" ? 1.8 : 1.4, 0, Math.PI * 2);
+          context.fillStyle =
+            variant === "light"
+              ? "rgba(0, 131, 214, .92)"
+              : "rgba(154, 246, 255, .8)";
+          context.shadowColor = variant === "light" ? "#138fd1" : "#38d9ef";
           context.shadowBlur = 7;
           context.fill();
           context.shadowBlur = 0;
@@ -123,9 +135,18 @@ export function TechNetwork({
           ? 0.65
           : 0.65 + Math.sin(time * 0.001 + node.phase) * 0.2;
         context.beginPath();
-        context.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        context.fillStyle = `rgba(65, 219, 238, ${glow})`;
-        context.shadowColor = "#20cde3";
+        context.arc(
+          node.x,
+          node.y,
+          node.radius * (variant === "light" ? 1.25 : 1),
+          0,
+          Math.PI * 2,
+        );
+        context.fillStyle =
+          variant === "light"
+            ? `rgba(5, 121, 199, ${Math.min(1, glow + 0.22)})`
+            : `rgba(65, 219, 238, ${glow})`;
+        context.shadowColor = variant === "light" ? "#168fd0" : "#20cde3";
         context.shadowBlur = intensity === "hero" ? 11 : 5;
         context.fill();
         context.shadowBlur = 0;
@@ -146,7 +167,7 @@ export function TechNetwork({
       window.clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
     };
-  }, [intensity]);
+  }, [intensity, variant]);
 
   return (
     <canvas

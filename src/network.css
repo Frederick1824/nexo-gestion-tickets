@@ -160,12 +160,12 @@
 .landing-network {
   position: fixed;
   z-index: 0;
-  opacity: 0.28;
+  opacity: 1;
 }
 .landing:before {
   content: "";
   position: fixed;
-  z-index: 0;
+  z-index: -1;
   inset: 0;
   background: linear-gradient(145deg, #f8fbffeb, #edf6fbe8);
   pointer-events: none;
@@ -175,12 +175,20 @@
   overflow: hidden;
   isolation: isolate;
 }
+.landing .hero {
+  background: rgba(234, 246, 251, 0.58);
+}
 .hero:after {
   content: "";
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(90deg, #f7fbffdc 0%, #f3f9fccc 48%, #e8f7fb9e);
+  background: linear-gradient(
+    90deg,
+    rgba(247, 251, 255, 0.68) 0%,
+    rgba(243, 249, 252, 0.58) 48%,
+    rgba(232, 247, 251, 0.36)
+  );
   pointer-events: none;
 }
 .hero > div {
@@ -223,16 +231,16 @@
   scroll-margin-top: 94px;
 }
 .landing .section:not(.dark):not(.team-section):not(.materials-section) {
-  background-color: rgba(247, 251, 255, 0.9);
+  background-color: rgba(247, 251, 255, 0.76);
 }
 .landing .dark {
-  background: rgba(7, 24, 47, 0.95);
+  background: rgba(7, 24, 47, 0.91);
 }
 .landing .team-section {
-  background-color: rgba(7, 24, 47, 0.94);
+  background-color: rgba(7, 24, 47, 0.9);
 }
 .landing .materials-section {
-  background: rgba(242, 247, 251, 0.91);
+  background: rgba(242, 247, 251, 0.78);
 }
 .project-return {
   display: inline-flex;
