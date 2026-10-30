@@ -4,3 +4,6 @@ dist
 .vite
 *.local
 *.tsbuildinfo
+
+.vercel
+.env*
