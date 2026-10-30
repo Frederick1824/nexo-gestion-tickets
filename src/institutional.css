@@ -1,0 +1,300 @@
+.land-nav nav {
+  gap: 1.15rem;
+}
+.nav-ispc-logo {
+  width: 96px;
+  height: 48px;
+  object-fit: contain;
+  margin-left: 1rem;
+}
+.academic > img {
+  width: 175px;
+  max-height: 95px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 12px;
+  padding: 0.6rem;
+}
+.academic p {
+  margin: 0.18rem 0;
+}
+.team-section {
+  background:
+    radial-gradient(circle at 15% 15%, #153d62 0 1px, transparent 2px) 0 0/24px
+      24px,
+    #07182f;
+  color: #fff;
+}
+.team-section .section-tag {
+  color: #43d5df;
+}
+.team-section .lead {
+  color: #a9bdd1;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.team-grid article {
+  position: relative;
+  min-height: 190px;
+  padding: 1.5rem;
+  overflow: hidden;
+  border: 1px solid #294964;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #102d49e8, #0a2038e8);
+}
+.team-grid article > span {
+  color: #42d4df;
+  font: 800 0.75rem Manrope;
+  letter-spacing: 0.1em;
+}
+.team-grid h3 {
+  margin: 3.3rem 0 0.35rem;
+  font: 700 1.15rem Manrope;
+}
+.team-grid small {
+  color: #8ea7be;
+}
+.member-node {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 62px;
+  height: 45px;
+}
+.member-node:before,
+.member-node:after {
+  content: "";
+  position: absolute;
+  top: 21px;
+  left: 12px;
+  width: 38px;
+  height: 1px;
+  background: #2fcad7;
+  transform: rotate(-25deg);
+}
+.member-node:after {
+  transform: rotate(25deg);
+}
+.member-node i {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #2fd0dc;
+  box-shadow: 0 0 0 5px #2fd0dc18;
+}
+.member-node i:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+.member-node i:nth-child(3) {
+  right: 0;
+  bottom: 0;
+}
+.materials-section {
+  background: #f2f7fb;
+}
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.resource-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 35px #0d2b4710;
+}
+.resource-card > div:last-child {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+.resource-card small {
+  color: #1680c5;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+.resource-card h3 {
+  margin: 0.45rem 0;
+  font: 700 1.25rem Manrope;
+}
+.resource-card p {
+  color: #65758a;
+  line-height: 1.55;
+}
+.poster-preview {
+  position: relative;
+  height: 285px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: #091b32;
+  cursor: zoom-in;
+}
+.poster-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.3s;
+}
+.poster-preview:hover img {
+  transform: scale(1.035);
+}
+.poster-preview span {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  color: #fff;
+  background: #07182fd9;
+  font-weight: 700;
+}
+.poster-preview svg,
+.resource-actions svg {
+  width: 17px;
+}
+.resource-actions {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: auto;
+  padding-top: 1rem;
+}
+.resource-actions .btn {
+  flex: 1;
+  padding-inline: 0.65rem;
+  font-size: 0.78rem;
+}
+.pdf-preview {
+  height: 285px;
+  padding: 0 !important;
+  background: #e7eef5;
+}
+.pdf-preview iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.poster-modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  color: #fff;
+  background: #020914f5;
+}
+.poster-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1.2rem;
+  border-bottom: 1px solid #28405a;
+  background: #07172f;
+}
+.poster-toolbar > div {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.poster-toolbar button,
+.poster-toolbar a {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid #38526c;
+  border-radius: 8px;
+  color: #fff;
+  background: #112b46;
+  cursor: pointer;
+}
+.poster-toolbar svg {
+  width: 18px;
+}
+.poster-canvas {
+  overflow: auto;
+  padding: 2.5rem;
+  text-align: center;
+}
+.poster-canvas img {
+  max-width: min(900px, 90vw);
+  transform-origin: top center;
+  box-shadow: 0 18px 55px #0008;
+  transition: transform 0.18s;
+}
+.site-footer {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.site-footer > div {
+  display: grid;
+  gap: 0.3rem;
+}
+.site-footer b {
+  color: #fff;
+  font-family: Manrope;
+}
+.site-footer span {
+  font-size: 0.8rem;
+}
+.site-footer .ftk-credit {
+  justify-self: end;
+  padding-left: 1.2rem;
+  border-left: 1px solid #28405a;
+}
+.site-footer .ftk-credit b {
+  color: #45d3de;
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 1100px) {
+  .nav-ispc-logo {
+    display: none;
+  }
+  .team-grid,
+  .materials-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 720px) {
+  .team-grid,
+  .materials-grid,
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+  .academic > img {
+    width: 150px;
+  }
+  .site-footer .ftk-credit {
+    justify-self: start;
+    padding: 1rem 0 0;
+    border-top: 1px solid #28405a;
+    border-left: 0;
+  }
+  .resource-actions {
+    flex-direction: column;
+  }
+  .poster-toolbar b {
+    max-width: 120px;
+  }
+  .poster-canvas {
+    padding: 1rem;
+  }
+}

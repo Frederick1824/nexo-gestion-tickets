@@ -1,4 +1,10 @@
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type FormEvent,
+  type ReactNode,
+} from "react";
 import {
   Link,
   NavLink,
@@ -15,15 +21,19 @@ import {
   CheckCircle2,
   ClipboardList,
   Clock3,
+  Download,
+  Eye,
   GitBranch,
   LayoutDashboard,
   Menu,
+  Minus,
   Plus,
   RotateCcw,
   Search,
   ShieldCheck,
   Users,
   X,
+  ZoomIn,
 } from "lucide-react";
 import { areas, priorities, statuses, technicians } from "./data";
 import { event, useStore } from "./store";
@@ -40,16 +50,39 @@ const pRank: Record<Priority, number> = {
   crítica: 3,
 };
 function Landing() {
+  const [poster, setPoster] = useState<{ src: string; title: string } | null>(
+    null,
+  );
+  const [zoom, setZoom] = useState(1);
+  useEffect(() => {
+    if (!poster) return;
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPoster(null);
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [poster]);
+  const openPoster = (src: string, title: string) => {
+    setZoom(1);
+    setPoster({ src, title });
+  };
   return (
     <div className="landing">
       <header className="land-nav">
         <Link to="/" className="brand">
           <span>N</span>NEXO
         </Link>
+        <img
+          className="nav-ispc-logo"
+          src="/logos/ispc-logo.png"
+          alt="Instituto Superior Politécnico Córdoba"
+        />
         <nav>
           <a href="#problema">Problemática</a>
           <a href="#solucion">Solución</a>
           <a href="#coso">Control interno</a>
+          <a href="#equipo">Equipo</a>
+          <a href="#material">Material</a>
         </nav>
         <Link className="btn primary" to="/demo">
           Explorar NEXO <ArrowRight size={17} />
@@ -216,23 +249,191 @@ function Landing() {
           </div>
         </section>
         <section className="academic">
+          <img
+            src="/logos/ispc-logo.png"
+            alt="Instituto Superior Politécnico Córdoba"
+          />
           <div>
-            <BookOpen />
-            <div>
-              <small>PROYECTO ACADÉMICO</small>
-              <h2>Sistemas y Organizaciones · 2026</h2>
-              <p>ISPC · Ctrl+Estudio · Comisión A</p>
-            </div>
-            <Link className="btn light" to="/demo">
-              Ingresar al simulador <ArrowRight />
-            </Link>
+            <small>PROYECTO ACADÉMICO</small>
+            <h2>Sistemas y Organizaciones · Cohorte 2026</h2>
+            <p>Instituto Superior Politécnico Córdoba (ISPC)</p>
+            <p>Tecnicatura Superior en Desarrollo de Software</p>
+            <p>Comisión A · Equipo Ctrl+Estudio</p>
+            <p>Docente: Laura Anahí Zavia</p>
+          </div>
+          <Link className="btn light" to="/demo">
+            Ingresar al simulador <ArrowRight />
+          </Link>
+        </section>
+        <section id="equipo" className="section team-section">
+          <div className="section-tag">05 · LAS PERSONAS DETRÁS DE NEXO</div>
+          <h2>Nuestro equipo | Ctrl+Estudio</h2>
+          <p className="lead">
+            Seis estudiantes, una mirada compartida sobre procesos, tecnología y
+            control organizacional.
+          </p>
+          <div className="team-grid">
+            {[
+              "Alcaraz, Josefina",
+              "Castillo, Fiorella",
+              "Gillio, Emmanuel",
+              "Guzmán, Emilio",
+              "Montoro, Federico",
+              "Raspo, Marcelo",
+            ].map((name, index) => (
+              <article key={name}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div className="member-node" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </div>
+                <h3>{name}</h3>
+                <small>Ctrl+Estudio · Comisión A</small>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section id="material" className="section materials-section">
+          <div className="section-tag">06 · RECURSOS DEL PROYECTO</div>
+          <h2>Material académico</h2>
+          <p className="lead">
+            Explorá los pósteres del proyecto y consultá el trabajo académico
+            completo en su formato original.
+          </p>
+          <div className="materials-grid">
+            {[
+              {
+                title: "Póster original",
+                src: "/posters/nexo-poster-original.jpeg",
+                description: "Lámina inicial del proyecto de investigación.",
+              },
+              {
+                title: "Póster NEXO",
+                src: "/posters/nexo-poster-principal.png",
+                description: "Síntesis visual principal de la propuesta NEXO.",
+              },
+            ].map((resource) => (
+              <article className="resource-card" key={resource.src}>
+                <button
+                  className="poster-preview"
+                  onClick={() => openPoster(resource.src, resource.title)}
+                  aria-label={`Ampliar ${resource.title}`}
+                >
+                  <img src={resource.src} alt={resource.title} />
+                  <span>
+                    <ZoomIn /> Ampliar
+                  </span>
+                </button>
+                <div>
+                  <small>PÓSTER</small>
+                  <h3>{resource.title}</h3>
+                  <p>{resource.description}</p>
+                  <div className="resource-actions">
+                    <button
+                      className="btn ghost"
+                      onClick={() => openPoster(resource.src, resource.title)}
+                    >
+                      <Eye /> Visualizar
+                    </button>
+                    <a className="btn ghost" href={resource.src} download>
+                      <Download /> Descargar
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+            <article className="resource-card pdf-card">
+              <div className="pdf-preview">
+                <iframe
+                  src="/documentos/proyecto-nexo-abp.pdf#view=FitH"
+                  title="Vista previa del trabajo completo de NEXO"
+                />
+              </div>
+              <div>
+                <small>DOCUMENTO · PDF</small>
+                <h3>Trabajo completo</h3>
+                <p>Proyecto NEXO - Sistemas y Organizaciones, 9 páginas.</p>
+                <div className="resource-actions">
+                  <a
+                    className="btn ghost"
+                    href="/documentos/proyecto-nexo-abp.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Eye /> Abrir y ampliar
+                  </a>
+                  <a
+                    className="btn ghost"
+                    href="/documentos/proyecto-nexo-abp.pdf"
+                    download
+                  >
+                    <Download /> Descargar
+                  </a>
+                </div>
+              </div>
+            </article>
           </div>
         </section>
       </main>
-      <footer>
-        <b>NEXO</b>
-        <span>Simulador académico — datos ficticios</span>
+      <footer className="site-footer">
+        <div>
+          <b>NEXO</b>
+          <span>Gestión y trazabilidad</span>
+        </div>
+        <div>
+          <b>ISPC</b>
+          <span>Sistemas y Organizaciones</span>
+        </div>
+        <div>
+          <b>Ctrl+Estudio</b>
+          <span>Comisión A · 2026</span>
+        </div>
+        <div className="ftk-credit">
+          <span>Desarrollado por</span>
+          <b>FTK Lab</b>
+        </div>
       </footer>
+      {poster && (
+        <div className="poster-modal" role="dialog" aria-modal="true">
+          <div className="poster-toolbar">
+            <b>{poster.title}</b>
+            <div>
+              <button
+                onClick={() => setZoom((value) => Math.max(0.5, value - 0.25))}
+                aria-label="Reducir zoom"
+              >
+                <Minus />
+              </button>
+              <span>{Math.round(zoom * 100)}%</span>
+              <button
+                onClick={() => setZoom((value) => Math.min(3, value + 0.25))}
+                aria-label="Aumentar zoom"
+              >
+                <ZoomIn />
+              </button>
+              <a
+                href={poster.src}
+                download
+                aria-label="Descargar archivo original"
+              >
+                <Download />
+              </a>
+              <button onClick={() => setPoster(null)} aria-label="Cerrar visor">
+                <X />
+              </button>
+            </div>
+          </div>
+          <div className="poster-canvas" onClick={() => setPoster(null)}>
+            <img
+              src={poster.src}
+              alt={poster.title}
+              style={{ transform: `scale(${zoom})` }}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
