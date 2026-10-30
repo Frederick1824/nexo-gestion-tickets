@@ -159,7 +159,7 @@
 }
 .landing-network {
   position: fixed;
-  z-index: 0;
+  z-index: 1;
   opacity: 1;
 }
 .landing:before {
@@ -173,9 +173,9 @@
 .hero {
   position: relative;
   overflow: hidden;
-  isolation: isolate;
 }
 .landing .hero {
+  --network-dark: 0;
   background: rgba(234, 246, 251, 0.58);
 }
 .hero:after {
@@ -213,10 +213,17 @@
 .cover-back {
   margin-top: 0 !important;
 }
-.landing main,
+.landing main {
+  position: relative;
+  z-index: auto;
+}
+.landing main > section > * {
+  position: relative;
+  z-index: 2;
+}
 .site-footer {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .land-nav {
   position: sticky;
@@ -231,15 +238,22 @@
   scroll-margin-top: 94px;
 }
 .landing .section:not(.dark):not(.team-section):not(.materials-section) {
+  --network-dark: 0;
   background-color: rgba(247, 251, 255, 0.76);
 }
 .landing .dark {
-  background: rgba(7, 24, 47, 0.91);
+  --network-dark: 1;
+  background: rgb(7, 24, 47);
+}
+.landing .academic {
+  --network-dark: 1;
 }
 .landing .team-section {
-  background-color: rgba(7, 24, 47, 0.9);
+  --network-dark: 1;
+  background-color: rgb(7, 24, 47);
 }
 .landing .materials-section {
+  --network-dark: 0;
   background: rgba(242, 247, 251, 0.78);
 }
 .project-return {

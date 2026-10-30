@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 interface TechNetworkProps {
   intensity?: "hero" | "subtle";
-  variant?: "dark" | "light";
+  variant?: "dark" | "light" | "adaptive";
   className?: string;
 }
 
@@ -14,6 +14,23 @@ interface NodePoint {
   radius: number;
   phase: number;
 }
+
+interface ContrastZone {
+  top: number;
+  bottom: number;
+  darkness: number;
+}
+
+const mix = (light: number, dark: number, amount: number) =>
+  Math.round(light + (dark - light) * amount);
+
+const rgba = (
+  light: [number, number, number],
+  dark: [number, number, number],
+  amount: number,
+  alpha: number,
+) =>
+  `rgba(${mix(light[0], dark[0], amount)}, ${mix(light[1], dark[1], amount)}, ${mix(light[2], dark[2], amount)}, ${alpha})`;
 
 export function TechNetwork({
   intensity = "hero",
@@ -43,6 +60,52 @@ export function TechNetwork({
     let frame = 0;
     let lastTime = 0;
     let resizeTimer = 0;
+    let zones: ContrastZone[] = [];
+
+    const refreshZones = () => {
+      if (variant !== "adaptive") return;
+      const landing = canvas.closest(".landing");
+      if (!landing) return;
+      zones = Array.from(
+        landing.querySelectorAll<HTMLElement>("main > section"),
+      ).map((section) => {
+        const bounds = section.getBoundingClientRect();
+        const darkness = Number.parseFloat(
+          getComputedStyle(section).getPropertyValue("--network-dark"),
+        );
+        return {
+          top: bounds.top + window.scrollY,
+          bottom: bounds.bottom + window.scrollY,
+          darkness: Number.isFinite(darkness) ? darkness : 0,
+        };
+      });
+    };
+
+    const darknessAt = (viewportY: number) => {
+      if (variant === "dark") return 1;
+      if (variant === "light" || !zones.length) return 0;
+
+      const pageY = viewportY + window.scrollY;
+      const transition = 110;
+      const boundaries = zones.slice(0, -1).map((zone, index) => {
+        const next = zones[index + 1];
+        return (zone.bottom + next.top) / 2;
+      });
+      let index = boundaries.findIndex((boundary) => pageY < boundary);
+      if (index === -1) index = zones.length - 1;
+      if (index > 0) {
+        const boundary = boundaries[index - 1];
+        if (Math.abs(pageY - boundary) < transition) {
+          const progress = (pageY - (boundary - transition)) / (transition * 2);
+          const eased = progress * progress * (3 - 2 * progress);
+          return (
+            zones[index - 1].darkness +
+            (zones[index].darkness - zones[index - 1].darkness) * eased
+          );
+        }
+      }
+      return zones[index].darkness;
+    };
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -66,6 +129,7 @@ export function TechNetwork({
           phase: Math.random() * Math.PI * 2,
         });
       }
+      refreshZones();
     };
 
     const draw = (time = 0) => {
@@ -88,21 +152,20 @@ export function TechNetwork({
           const second = nodes[right];
           const distance = Math.hypot(first.x - second.x, first.y - second.y);
           if (distance < connectionDistance) {
+            const darkness = darknessAt((first.y + second.y) / 2);
             const opacity =
               (1 - distance / connectionDistance) *
-              (intensity === "hero"
-                ? variant === "light"
-                  ? 0.76
-                  : 0.28
-                : 0.1);
+              (intensity === "hero" ? 0.26 - darkness * 0.04 : 0.1);
             context.beginPath();
             context.moveTo(first.x, first.y);
             context.lineTo(second.x, second.y);
-            context.strokeStyle =
-              variant === "light"
-                ? `rgba(18, 111, 190, ${opacity})`
-                : `rgba(63, 210, 231, ${opacity})`;
-            context.lineWidth = variant === "light" ? 1.05 : 0.65;
+            context.strokeStyle = rgba(
+              [18, 100, 181],
+              [63, 220, 235],
+              darkness,
+              opacity,
+            );
+            context.lineWidth = 0.9 + darkness * 0.1;
             context.stroke();
             connections.push([first, second]);
           }
@@ -117,13 +180,16 @@ export function TechNetwork({
           const progress = (time * 0.000055 + index / count) % 1;
           const x = start.x + (end.x - start.x) * progress;
           const y = start.y + (end.y - start.y) * progress;
+          const darkness = darknessAt(y);
           context.beginPath();
-          context.arc(x, y, variant === "light" ? 1.8 : 1.4, 0, Math.PI * 2);
-          context.fillStyle =
-            variant === "light"
-              ? "rgba(0, 131, 214, .92)"
-              : "rgba(154, 246, 255, .8)";
-          context.shadowColor = variant === "light" ? "#138fd1" : "#38d9ef";
+          context.arc(x, y, 1.8 - darkness * 0.25, 0, Math.PI * 2);
+          context.fillStyle = rgba(
+            [0, 105, 196],
+            [143, 244, 255],
+            darkness,
+            0.92,
+          );
+          context.shadowColor = rgba([9, 91, 181], [56, 217, 239], darkness, 1);
           context.shadowBlur = 7;
           context.fill();
           context.shadowBlur = 0;
@@ -131,6 +197,7 @@ export function TechNetwork({
       }
 
       nodes.forEach((node) => {
+        const darkness = darknessAt(node.y);
         const glow = reducedMotion
           ? 0.65
           : 0.65 + Math.sin(time * 0.001 + node.phase) * 0.2;
@@ -138,15 +205,17 @@ export function TechNetwork({
         context.arc(
           node.x,
           node.y,
-          node.radius * (variant === "light" ? 1.25 : 1),
+          node.radius * (1.25 - darkness * 0.15),
           0,
           Math.PI * 2,
         );
-        context.fillStyle =
-          variant === "light"
-            ? `rgba(5, 121, 199, ${Math.min(1, glow + 0.22)})`
-            : `rgba(65, 219, 238, ${glow})`;
-        context.shadowColor = variant === "light" ? "#168fd0" : "#20cde3";
+        context.fillStyle = rgba(
+          [3, 92, 177],
+          [58, 222, 239],
+          darkness,
+          Math.min(1, glow + 0.2 - darkness * 0.08),
+        );
+        context.shadowColor = rgba([7, 85, 174], [32, 205, 227], darkness, 1);
         context.shadowBlur = intensity === "hero" ? 11 : 5;
         context.fill();
         context.shadowBlur = 0;
@@ -162,10 +231,14 @@ export function TechNetwork({
     resize();
     draw();
     window.addEventListener("resize", onResize, { passive: true });
+    const resizeObserver = new ResizeObserver(refreshZones);
+    const landingMain = canvas.closest(".landing")?.querySelector("main");
+    if (landingMain) resizeObserver.observe(landingMain);
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
+      resizeObserver.disconnect();
     };
   }, [intensity, variant]);
 

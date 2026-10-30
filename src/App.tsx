@@ -104,7 +104,7 @@ function Landing() {
     <div className="landing">
       <TechNetwork
         intensity="hero"
-        variant="light"
+        variant="adaptive"
         className="landing-network"
       />
       <header className="land-nav">
