@@ -160,7 +160,7 @@
 .landing-network {
   position: fixed;
   z-index: 0;
-  opacity: 0.2;
+  opacity: 0.28;
 }
 .landing:before {
   content: "";
@@ -175,19 +175,15 @@
   overflow: hidden;
   isolation: isolate;
 }
-.hero-network {
-  z-index: 0;
-  opacity: 0.38;
-}
 .hero:after {
   content: "";
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(90deg, #f7fbfff2 0%, #f3f9fce0 48%, #e8f7fbba);
+  background: linear-gradient(90deg, #f7fbffdc 0%, #f3f9fccc 48%, #e8f7fb9e);
   pointer-events: none;
 }
-.hero > div:not(.hero-network) {
+.hero > div {
   position: relative;
   z-index: 2;
 }
@@ -209,11 +205,51 @@
 .cover-back {
   margin-top: 0 !important;
 }
-.land-nav,
 .landing main,
 .site-footer {
   position: relative;
   z-index: 1;
+}
+.land-nav {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 6px 24px rgba(6, 29, 54, 0.08);
+  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: blur(18px) saturate(135%);
+}
+.landing section[id] {
+  scroll-margin-top: 94px;
+}
+.landing .section:not(.dark):not(.team-section):not(.materials-section) {
+  background-color: rgba(247, 251, 255, 0.9);
+}
+.landing .dark {
+  background: rgba(7, 24, 47, 0.95);
+}
+.landing .team-section {
+  background-color: rgba(7, 24, 47, 0.94);
+}
+.landing .materials-section {
+  background: rgba(242, 247, 251, 0.91);
+}
+.project-return {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-right: 1.1rem;
+  padding: 0.55rem 0.72rem;
+  border: 1px solid #c8d7e5;
+  border-radius: 8px;
+  color: #173d65;
+  background: #f7fbff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.project-return svg {
+  width: 16px;
 }
 @keyframes network-breathe {
   from {
@@ -231,9 +267,6 @@
   }
   .cover-link {
     display: none;
-  }
-  .hero-network {
-    opacity: 0.26;
   }
 }
 @media (max-width: 620px) {
@@ -255,8 +288,8 @@
     width: 100%;
     max-width: 310px;
   }
-  .hero-network {
-    opacity: 0.2;
+  .project-return span {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {

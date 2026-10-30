@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import {
   Activity,
+  ArrowLeft,
   ArrowRight,
   BarChart3,
   BookOpen,
@@ -101,7 +102,7 @@ function Landing() {
   };
   return (
     <div className="landing">
-      <TechNetwork intensity="subtle" className="landing-network" />
+      <TechNetwork intensity="hero" className="landing-network" />
       <header className="land-nav">
         <Link to="/proyecto" className="brand">
           <span>N</span>NEXO
@@ -127,7 +128,6 @@ function Landing() {
       </header>
       <main>
         <section className="hero">
-          <TechNetwork intensity="hero" className="hero-network" />
           <div>
             <div className="eyebrow">ISPC · Proyecto académico 2026</div>
             <h1>
@@ -523,7 +523,7 @@ function Shell({ children }: { children: ReactNode }) {
         </div>
         <div className="side-links">
           <Link to="/proyecto" className="back primary-back">
-            ← Volver al inicio
+            ← Volver al proyecto
           </Link>
           <Link to="/" className="back cover-back">
             Ir a la portada
@@ -535,6 +535,9 @@ function Shell({ children }: { children: ReactNode }) {
           <button className="menu" onClick={() => setOpen(true)}>
             <Menu />
           </button>
+          <Link className="project-return" to="/proyecto">
+            <ArrowLeft /> <span>Volver al proyecto</span>
+          </Link>
           <div>
             <small>SIMULADOR OPERATIVO</small>
             <b>
