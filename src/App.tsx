@@ -39,6 +39,7 @@ import {
 import { areas, priorities, statuses, technicians } from "./data";
 import { event, useStore } from "./store";
 import { TechNetwork } from "./components/TechNetwork";
+import { CommunicationsLanding } from "./CommunicationsLanding";
 import type { Area, NewTicket, Priority, Ticket } from "./types";
 const fmt = (x: string) =>
   new Intl.DateTimeFormat("es-AR", {
@@ -71,9 +72,24 @@ function Welcome() {
           Plataforma de gestión y trazabilidad de solicitudes de soporte
           tecnológico
         </p>
-        <Link className="btn welcome-button" to="/proyecto">
-          Ingresar al proyecto <ArrowRight />
-        </Link>
+        <div className="welcome-projects">
+          <Link className="welcome-project" to="/proyecto">
+            <small>01 · ENFOQUE ORGANIZACIONAL</small>
+            <h2>Sistemas y Organizaciones</h2>
+            <p>Cómo se organizan los procesos</p>
+            <span>
+              Ingresar al proyecto <ArrowRight />
+            </span>
+          </Link>
+          <Link className="welcome-project" to="/comunicacionales">
+            <small>02 · ENFOQUE COMUNICACIONAL</small>
+            <h2>Competencias Comunicacionales II</h2>
+            <p>Cómo se conectan las personas</p>
+            <span>
+              Ingresar al proyecto <ArrowRight />
+            </span>
+          </Link>
+        </div>
         <div className="welcome-institution">
           ISPC <i /> Ctrl+Estudio <i /> Comisión A <i /> 2026
         </div>
@@ -108,7 +124,7 @@ function Landing() {
         className="landing-network"
       />
       <header className="land-nav">
-        <Link to="/proyecto" className="brand">
+        <Link to="/" className="brand" aria-label="Volver a la portada NEXO">
           <span>N</span>NEXO
         </Link>
         <img
@@ -126,6 +142,10 @@ function Landing() {
             Portada
           </Link>
         </nav>
+        <Link className="subject-switch" to="/comunicacionales">
+          <span>Comunicacionales II</span>
+          <ArrowRight />
+        </Link>
         <Link className="btn primary" to="/demo">
           Explorar simulador <ArrowRight size={17} />
         </Link>
@@ -1516,6 +1536,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Welcome />} />
       <Route path="/proyecto" element={<Landing />} />
+      <Route path="/comunicacionales" element={<CommunicationsLanding />} />
       <Route path="/demo/*" element={<Demo />} />
       <Route path="*" element={<Welcome />} />
     </Routes>
