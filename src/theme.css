@@ -179,6 +179,13 @@ html[data-theme="dark"] .notebook-stage {
   background: radial-gradient(circle at 50% 10%, #173d5a, #051729 68%);
   box-shadow: 0 28px 70px #0008;
 }
+html[data-theme="dark"] .academic-posters { background: rgba(9, 29, 49, .9); }
+html[data-theme="dark"] .academic-posters-heading h2,
+html[data-theme="dark"] .academic-poster-info h3 { color: #e1ebf3; }
+html[data-theme="dark"] .academic-posters-heading p { color: #a9bbcb; }
+html[data-theme="dark"] .academic-poster-card { border-color: #2b4962; background: #0d253d; box-shadow: 0 14px 35px #0004; }
+html[data-theme="dark"] .academic-poster-preview { background: linear-gradient(145deg, #102b43, #0a2034); }
+html[data-theme="dark"] .academic-poster-info a { border-color: #35536b; color: #bfe5ea; background: #102b44; }
 html[data-theme="dark"] .btn.ghost {
   border-color: #36536c;
   color: #d5e4ee;

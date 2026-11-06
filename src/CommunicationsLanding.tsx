@@ -17,6 +17,7 @@ import {
   Users,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { AcademicPosters } from "./components/AcademicPosters";
 import { NotebookPresentation } from "./components/NotebookPresentation";
 import { TechNetwork } from "./components/TechNetwork";
 import { ThemeToggle } from "./theme";
@@ -365,6 +366,8 @@ export function CommunicationsLanding() {
             Abrir documento <ArrowRight />
           </a>
         </section>
+
+        <AcademicPosters />
 
         <section id="equipo" className="section comms-team">
           <div className="section-tag">08 · Equipo y créditos</div>
