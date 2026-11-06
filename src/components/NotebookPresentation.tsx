@@ -28,6 +28,38 @@ const pages = [
   { name: "Federico Montoro", topic: "Conclusión" },
 ];
 
+function SketchPeople({ compact = false }: { compact?: boolean }) {
+  return (
+    <div className={`sketch-people${compact ? " compact" : ""}`} aria-label="Seis integrantes de Ctrl+Estudio colaborando">
+      {Array.from({ length: 6 }, (_, index) => (
+        <div className={`sketch-person person-${index + 1}`} key={index}>
+          <i className="person-head" />
+          <i className="person-body" />
+          <i className="person-arms" />
+          <i className="person-legs" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function NotebookCover() {
+  return (
+    <div className="notebook-cover-art">
+      <img src="/logos/ispc-logo.png" alt="Instituto Superior Politécnico Córdoba" />
+      <div className="cover-label">
+        <span>Proyecto académico · 2026</span>
+        <h3>NE<span>X</span>O</h3>
+        <h4>Competencias Comunicacionales II</h4>
+        <p>Conectando personas, procesos e información</p>
+        <b>Grupo Ctrl+Estudio</b>
+        <small>Instituto Superior Politécnico Córdoba · 2026</small>
+      </div>
+      <SketchPeople compact />
+    </div>
+  );
+}
+
 function PageArtwork({ page }: { page: number }) {
   if (page === 0) {
     const channels = [
@@ -140,13 +172,34 @@ function PageArtwork({ page }: { page: number }) {
     <div className="notebook-conclusion">
       <div className="conclusion-map">
         <div className="subject-note"><Building2 /><b>Sistemas y Organizaciones</b><span>Procesos y responsabilidades</span></div>
-        <div className="converge-lines" aria-hidden="true" />
         <div className="nexo-badge">NE<span>X</span>O</div>
         <div className="subject-note"><MessageCircle /><b>Competencias Comunicacionales II</b><span>Personas e información</span></div>
       </div>
+      <div className="collaboration-sketch">
+        <SketchPeople />
+        <span>Ctrl+Estudio · colaboración</span>
+      </div>
+      <div className="sticky-note sticky-yellow conclusion-sticky">
+        La tecnología organiza.<br />La comunicación conecta.
+      </div>
       <blockquote>NEXO conecta procesos.<br />La comunicación conecta personas.</blockquote>
-      <div className="thanks-note">Muchas gracias</div>
+      <div className="thanks-note">¡Muchas gracias!</div>
     </div>
+  );
+}
+
+function SheetContent({ slide }: { slide: number }) {
+  if (slide === 0) return <NotebookCover />;
+  const page = pages[slide - 1];
+  return (
+    <>
+      <header>
+        <span>{String(slide).padStart(2, "0")}</span>
+        <h3>{page.name}</h3>
+        <b>{page.topic}</b>
+      </header>
+      <PageArtwork page={slide - 1} />
+    </>
   );
 }
 
@@ -165,7 +218,7 @@ export function NotebookPresentation() {
     (direction: "next" | "previous") => {
       if (transition) return;
       const nextPage = activePage + (direction === "next" ? 1 : -1);
-      if (nextPage < 0 || nextPage >= pages.length) return;
+      if (nextPage < 0 || nextPage > pages.length) return;
       setTransition({ from: activePage, to: nextPage, direction });
       timerRef.current = window.setTimeout(() => {
         setActivePage(nextPage);
@@ -220,29 +273,28 @@ export function NotebookPresentation() {
       <div className={`notebook${transition ? ` is-turning turn-${transition.direction}` : ""}`} aria-live="polite">
         <div className="notebook-binding" aria-hidden="true">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</div>
         {incomingPage !== undefined && (
-          <article className="notebook-sheet incoming" aria-hidden="true">
-            <header><span>{String(incomingPage + 1).padStart(2, "0")}</span><h3>{pages[incomingPage].name}</h3><b>{pages[incomingPage].topic}</b></header>
-            <PageArtwork page={incomingPage} />
+          <article className={`notebook-sheet incoming${incomingPage === 0 ? " notebook-cover" : ""}`} aria-hidden="true">
+            <SheetContent slide={incomingPage} />
           </article>
         )}
-        <article className="notebook-sheet current" key={visiblePage}>
-          <header>
-            <span>{String(visiblePage + 1).padStart(2, "0")}</span>
-            <h3>{pages[visiblePage].name}</h3>
-            <b>{pages[visiblePage].topic}</b>
-          </header>
-          <PageArtwork page={visiblePage} />
-          <footer>NEXO · Competencias Comunicacionales II</footer>
+        <article className={`notebook-sheet current${visiblePage === 0 ? " notebook-cover" : ""}`} key={visiblePage}>
+          <SheetContent slide={visiblePage} />
         </article>
       </div>
 
       <div className="notebook-controls">
         <button type="button" onClick={() => changePage("previous")} disabled={activePage === 0 || Boolean(transition)} aria-label="Página anterior"><ArrowLeft /></button>
         <div>
-          <strong>{String(activePage + 1).padStart(2, "0")}</strong>
-          <span>/ {String(pages.length).padStart(2, "0")} · {pages[activePage].name}</span>
+          {activePage === 0 ? (
+            <strong>Portada</strong>
+          ) : (
+            <>
+              <strong>{String(activePage).padStart(2, "0")}</strong>
+              <span>/ {String(pages.length).padStart(2, "0")} · {pages[activePage - 1].name}</span>
+            </>
+          )}
         </div>
-        <button type="button" onClick={() => changePage("next")} disabled={activePage === pages.length - 1 || Boolean(transition)} aria-label="Página siguiente"><ArrowRight /></button>
+        <button type="button" onClick={() => changePage("next")} disabled={activePage === pages.length || Boolean(transition)} aria-label="Página siguiente"><ArrowRight /></button>
       </div>
       <p className="notebook-hint">Usá las flechas del teclado para navegar · Escape para salir de pantalla completa</p>
     </div>
