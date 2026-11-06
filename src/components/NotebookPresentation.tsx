@@ -101,9 +101,7 @@ function PageArtwork({ page }: { page: number }) {
         <div className="number-note sticky-blue">
           <strong>51</strong><span>cambios de prioridad sin registro</span>
         </div>
-        <div className="confusion-lines" aria-hidden="true"><i /><i /><i /><i /></div>
         <span className="pencil-note note-confusion">¿quién responde?</span>
-        <span className="marker-circle" aria-hidden="true" />
       </div>
     );
   }
