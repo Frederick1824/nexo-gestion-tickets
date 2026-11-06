@@ -495,142 +495,40 @@
 .presentation-heading .lead {
   margin-bottom: 0;
 }
-.presentation-duration {
-  display: flex;
-  max-width: 260px;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.8rem 1rem;
-  border: 1px solid #bad5e4;
-  border-radius: 12px;
-  color: #155f91;
-  background: #f8fdff;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-.presentation-duration svg {
-  flex: 0 0 auto;
-  color: #1487bd;
-}
-.speech-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-  gap: 1rem;
-  margin-top: 3rem;
-}
-.speech-card {
-  display: flex;
-  min-height: 350px;
-  flex-direction: column;
-  padding: 1.5rem;
-  border: 1px solid #c5d9e6;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 16px 35px #0d2c4710;
-  transition:
-    transform 0.2s,
-    border-color 0.2s,
-    box-shadow 0.2s;
-}
-.speech-card:hover {
-  transform: translateY(-2px);
-  border-color: #73bfd4;
-  box-shadow: 0 20px 42px #0d2c4718;
-}
-.speech-card.expanded {
-  border-color: #2e9fc4;
-}
-.speech-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.speech-card-head span {
-  color: #1780b8;
-  font: 800 0.75rem Manrope;
-  letter-spacing: 0.12em;
-}
-.speech-card-head svg {
-  width: 22px;
-  color: #2b9fc0;
-}
-.speech-card h3 {
-  margin: 2rem 0 0.35rem;
-  color: #0c2340;
-  font: 750 1.35rem Manrope;
-}
-.speech-card > b {
-  color: #1678a8;
-  font-size: 0.82rem;
-}
-.speech-summary {
-  margin: 1rem 0 1.5rem;
-  color: #627488;
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-.speech-actions {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.6rem;
-  margin-top: auto;
-}
-.speech-actions button {
-  display: inline-flex;
-  min-height: 42px;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  padding: 0.65rem 0.75rem;
-  border-radius: 9px;
-  font-size: 0.76rem;
-  font-weight: 800;
-  cursor: pointer;
-}
-.speech-actions svg {
-  width: 16px;
-}
-.speech-expand {
-  border: 0;
-  color: #fff;
-  background: linear-gradient(135deg, #176fc0, #168fb8);
-}
-.speech-expand svg {
-  transition: transform 0.2s;
-}
-.speech-card.expanded .speech-expand svg {
-  transform: rotate(180deg);
-}
-.speech-copy {
-  border: 1px solid #bfd2df;
-  color: #174b71;
-  background: #f6fbfe;
-}
-.speech-full {
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid #d9e5ec;
-}
-.speech-label {
-  color: #1882b0;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-}
-.speech-full p {
-  margin-bottom: 0;
-  color: #314a60;
-  font-size: 0.98rem;
-  line-height: 1.82;
-}
-.copy-status {
-  min-height: 1.2rem;
-  margin-top: 1rem;
-  color: #176f96;
-  font-size: 0.75rem;
-  text-align: right;
-}
+.notebook-stage { max-width:1120px; margin:2.5rem auto 0; padding:1.25rem; border:1px solid #bcd2df; border-radius:24px; color:#dce9f2; background:radial-gradient(circle at 50% 10%,#204868,#0a2339 65%); box-shadow:0 28px 70px #06192f40; }
+.notebook-stage:fullscreen { display:grid; align-content:center; width:100vw; max-width:none; height:100vh; margin:0; padding:clamp(1rem,3vw,3rem); border:0; border-radius:0; }
+.notebook-toolbar,.notebook-controls { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.notebook-toolbar { margin-bottom:1rem; font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.notebook-toolbar>span,.notebook-toolbar button { display:inline-flex; align-items:center; gap:.45rem; }
+.notebook-toolbar svg,.notebook-controls svg { width:18px; }
+.notebook-toolbar button,.notebook-controls button { border:1px solid #54728a; border-radius:10px; color:#dff7f7; background:#143650; cursor:pointer; }
+.notebook-toolbar button { padding:.55rem .8rem; }
+.notebook { position:relative; height:min(630px,68vw); min-height:510px; perspective:1800px; }
+.notebook-sheet { position:absolute; inset:0; overflow:hidden; padding:clamp(1.5rem,4vw,3.5rem) clamp(1.5rem,5vw,4.5rem) 2rem; border:1px solid #d4c9ac; border-radius:8px 18px 18px 8px; color:#24364a; background-color:#fbf4dc; background-image:linear-gradient(90deg,transparent 0 8%,#e28b8b55 8% 8.2%,transparent 8.2%),repeating-linear-gradient(0deg,transparent 0 31px,#8cabc22e 31px 32px),radial-gradient(circle at 20% 10%,#fff9,transparent 42%),linear-gradient(105deg,#f5eccf,#fffaf0 45%,#eee1bd); box-shadow:0 22px 45px #0005,inset 22px 0 30px #5b472319; transform-style:preserve-3d; backface-visibility:hidden; }
+.notebook-sheet.incoming { z-index:1; }.notebook-sheet.current { z-index:2; }.notebook.is-turning .notebook-sheet { pointer-events:none; }
+.notebook.turn-next .current { transform-origin:left center; animation:turn-page-next 720ms cubic-bezier(.55,.04,.28,1) forwards; }
+.notebook.turn-previous .current { transform-origin:right center; animation:turn-page-previous 720ms cubic-bezier(.55,.04,.28,1) forwards; }
+@keyframes turn-page-next { 0%{transform:rotateY(0);filter:brightness(1)} 48%{filter:brightness(.72)} 100%{transform:rotateY(-178deg);filter:brightness(.95)} }
+@keyframes turn-page-previous { 0%{transform:rotateY(0);filter:brightness(1)} 48%{filter:brightness(.72)} 100%{transform:rotateY(178deg);filter:brightness(.95)} }
+.notebook-binding { position:absolute; z-index:8; top:4%; bottom:4%; left:-7px; display:flex; flex-direction:column; justify-content:space-around; pointer-events:none; }
+.notebook-binding i { width:30px; height:8px; border:2px solid #60717e; border-radius:8px; background:linear-gradient(#d8e0e3,#64757f); box-shadow:2px 2px 3px #0005; }
+.notebook-sheet header { position:relative; z-index:2; display:grid; grid-template-columns:auto 1fr auto; align-items:end; gap:1rem; padding-bottom:1rem; border-bottom:3px solid #2a9bbdcc; }
+.notebook-sheet header span { color:#237fa1; font:800 .8rem Manrope; letter-spacing:.12em; }
+.notebook-sheet header h3 { margin:0; color:#17354d; font:700 clamp(1.7rem,3.3vw,3rem) "Segoe Print","Comic Sans MS",cursive; }
+.notebook-sheet header b { position:relative; z-index:0; color:#23465d; font:700 clamp(.9rem,1.8vw,1.2rem) "Segoe Print",cursive; }
+.notebook-sheet header b:after { position:absolute; z-index:-1; right:-6px; bottom:-2px; left:-6px; height:55%; background:#ffe372a8; content:""; transform:rotate(-1deg); }
+.notebook-sheet footer { position:absolute; right:2rem; bottom:.7rem; color:#607483; font:700 .55rem Manrope; letter-spacing:.1em; }
+.sticky-note,.number-note,.planning-notes span { padding:1rem; box-shadow:5px 7px 12px #4b402526; font:700 clamp(.85rem,1.5vw,1.1rem) "Segoe Print",cursive; }
+.sticky-yellow{background:#fff0a9}.sticky-pink{background:#f8cbd2}.sticky-blue{background:#c7e9ed}.pencil-note{color:#657178;font:600 clamp(.75rem,1.4vw,1rem) "Segoe Print",cursive}
+.channel-sketches{position:relative;height:390px;margin-top:1rem}.sketch-box{position:absolute;display:flex;width:170px;min-height:82px;align-items:center;gap:.7rem;padding:.9rem;border:2px solid #3c7693;border-radius:46% 54% 48% 52%;background:#fff9;font:700 .85rem "Segoe Print",cursive}.sketch-box svg{width:24px;color:#178eaa}.sketch-1{top:18px;left:3%;transform:rotate(-3deg)}.sketch-2{top:10px;right:6%;transform:rotate(2deg)}.sketch-3{top:155px;left:10%;transform:rotate(2deg)}.sketch-4{top:150px;right:4%;transform:rotate(-2deg)}.sketch-5{bottom:4px;left:35%;transform:rotate(1deg)}
+.sketch-box:after{position:absolute;width:80px;border-top:2px dashed #778b93;content:""}.sketch-1:after,.sketch-3:after{right:-75px;transform:rotate(18deg)}.sketch-2:after,.sketch-4:after{left:-75px;transform:rotate(-18deg)}.sketch-5:after{top:-45px;left:45px;transform:rotate(90deg)}
+.unfinished-center{position:absolute;top:135px;left:46%;width:60px;height:60px;border:2px dashed #9e5960;border-radius:50%;color:#9e5960;text-align:center;font:700 2rem "Segoe Print"}.notebook-context .sticky-note{position:absolute;right:9%;bottom:11%;transform:rotate(-3deg)}.note-context{position:absolute;bottom:9%;left:7%;transform:rotate(3deg)}
+.notebook-problem{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;padding:4rem 2% 0}.number-note{display:flex;min-height:190px;flex-direction:column;justify-content:center;text-align:center;transform:rotate(-2deg)}.number-note:nth-child(2){transform:rotate(2deg) translateY(35px)}.number-note:nth-child(3){transform:rotate(-1deg) translateY(-8px)}.number-note strong{color:#123e5d;font:800 clamp(3rem,7vw,5.5rem) Manrope;line-height:1}.number-note span{margin-top:.6rem}.confusion-lines i{position:absolute;top:45%;left:15%;width:70%;border-top:3px dashed #b0515c;transform-origin:center}.confusion-lines i:nth-child(2){transform:rotate(15deg)}.confusion-lines i:nth-child(3){transform:rotate(-14deg)}.confusion-lines i:nth-child(4){transform:rotate(5deg)}.note-confusion{position:absolute;right:5%;bottom:-95px;transform:rotate(-6deg)}.marker-circle{position:absolute;top:36%;left:36%;width:29%;height:48%;border:5px solid #d55b6570;border-radius:50%;transform:rotate(-4deg)}
+.flow-sketch{display:flex;align-items:center;justify-content:center;gap:.3rem;margin-top:4rem}.flow-step{position:relative;display:flex;min-width:145px;min-height:130px;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;border:2px solid #347590;border-radius:48% 52% 45% 55%;background:#fff8;text-align:center}.flow-step svg{color:#158ba5}.hand-arrow{position:absolute;z-index:2;right:-29px;color:#b45d58;font:700 2.2rem "Segoe Print"}.pilot-note{position:absolute;right:8%;bottom:14%;transform:rotate(3deg)}.objective-doodles{display:flex;gap:1.5rem;margin:3rem 0 0 6%}.objective-doodles span{display:flex;align-items:center;gap:.4rem;font:700 .8rem "Segoe Print"}.objective-doodles svg{width:20px;color:#247d9c}
+.timeline-sketch{display:grid;grid-template-columns:repeat(12,1fr);margin:5rem 2% 0;border-top:4px solid #315e75}.timeline-sketch div{position:relative;padding-top:1.2rem;text-align:center;font:700 .8rem "Segoe Print"}.timeline-sketch i{position:absolute;top:-9px;left:calc(50% - 7px);width:14px;height:14px;border:3px solid #315e75;border-radius:50%;background:#fbf4dc}.timeline-sketch .initial-week{color:#a33f54;background:#f7c8cd55}.timeline-sketch .initial-week i{border-color:#b34b5f;background:#ef9aaa}.timeline-sketch .future-week{color:#667986}.timeline-labels{display:grid;grid-template-columns:1fr 2fr;margin:1rem 2%;text-align:center;font:700 .8rem "Segoe Print"}.timeline-labels b{color:#a33f54}.timeline-labels span{color:#637682}.planning-notes{display:flex;justify-content:center;gap:2rem;margin-top:4rem}.planning-notes span:nth-child(1){transform:rotate(-3deg)}.planning-notes span:nth-child(2){transform:rotate(2deg)}.planning-notes span:nth-child(3){transform:rotate(-1deg)}.twelve-weeks{display:block;margin:2.5rem 5% 0;text-align:right;transform:rotate(-2deg)}
+.notebook-products{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;padding:4rem 2% 0}.paper-cut{display:flex;min-height:240px;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;padding:1.2rem;border:1px solid #d2c6a4;background:#fffdf5;box-shadow:6px 8px 15px #51432430;text-align:center;transform:rotate(-2deg)}.paper-cut:nth-child(2){transform:rotate(2deg)}.paper-cut:nth-child(3){transform:rotate(-1deg)}.paper-cut svg{width:48px;height:48px;color:#1b809f;stroke-width:1.6}.paper-cut b{color:#203e54;font:700 1.15rem "Segoe Print"}.paper-cut small{color:#63717a}.priority-swatches{display:flex;gap:5px}.priority-swatches i{width:22px;height:8px;border-radius:4px;background:#4dba7a}.priority-swatches i:nth-child(2){background:#f2d15b}.priority-swatches i:nth-child(3){background:#ef984d}.priority-swatches i:nth-child(4){background:#d9585b}.proposal-stamp{position:absolute;right:5%;bottom:-70px;padding:.6rem 1rem;border:4px double #b24f58;color:#a53e49;font:800 .9rem Manrope;letter-spacing:.12em;transform:rotate(-4deg)}
+.conclusion-map{position:relative;display:grid;grid-template-columns:1fr 130px 1fr;align-items:center;gap:1rem;margin-top:2.5rem}.subject-note{display:flex;min-height:155px;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:1.2rem;border:2px solid #3c7791;border-radius:45% 55% 48% 52%;background:#fff9;text-align:center}.subject-note svg{color:#1987a2}.subject-note b{font:700 .92rem "Segoe Print"}.subject-note span{font-size:.76rem;color:#5a6b74}.nexo-badge{display:grid;width:110px;height:110px;place-items:center;border:4px double #257e9e;border-radius:50%;color:#163e58;font:800 1.45rem Manrope;box-shadow:0 0 0 10px #4dc4d21f}.nexo-badge span{color:#138dc1}.conclusion-map:before,.conclusion-map:after{position:absolute;left:27%;width:18%;border-top:3px dashed #b45961;content:""}.conclusion-map:after{right:27%;left:auto}.notebook-conclusion blockquote{position:relative;width:max-content;max-width:90%;margin:3rem auto 1rem;color:#173f57;font:700 clamp(1.25rem,3vw,2.2rem) "Segoe Print",cursive;text-align:center}.notebook-conclusion blockquote:after{position:absolute;right:-8px;bottom:2px;left:-8px;z-index:-1;height:35%;background:#ffe1709c;content:"";transform:rotate(-1deg)}.thanks-note{text-align:center;color:#9c4f57;font:700 1.25rem "Segoe Print";transform:rotate(-2deg)}
+.notebook-controls{max-width:440px;margin:1rem auto 0}.notebook-controls button{display:grid;width:44px;height:44px;place-items:center}.notebook-controls button:disabled{opacity:.35;cursor:not-allowed}.notebook-controls div{display:flex;align-items:baseline;gap:.45rem}.notebook-controls strong{color:#59d2df;font-size:1.1rem}.notebook-controls span{color:#bad0de;font-size:.78rem}.notebook-hint{margin:.65rem 0 0;color:#8eabbc;font-size:.65rem;text-align:center}
 .comms-documentation > svg {
   width: 46px;
   height: 46px;
@@ -710,9 +608,6 @@
   .objective-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .speech-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 @media (max-width: 720px) {
   .welcome-projects,
@@ -728,15 +623,28 @@
     align-items: flex-start;
     flex-direction: column;
   }
-  .speech-grid {
-    grid-template-columns: 1fr;
-  }
-  .speech-card {
-    min-height: 0;
-  }
-  .speech-actions {
-    grid-template-columns: 1fr;
-  }
+  .notebook-stage { margin-inline:-.75rem; padding:.75rem; border-radius:16px; }
+  .notebook { height:690px; min-height:690px; }
+  .notebook-sheet { padding:1.25rem 1rem 1.5rem 1.7rem; border-radius:5px 12px 12px 5px; }
+  .notebook-sheet header { grid-template-columns:auto 1fr; gap:.55rem; }
+  .notebook-sheet header h3 { font-size:1.5rem; }
+  .notebook-sheet header b { grid-column:2; }
+  .notebook-binding i { width:22px; }
+  .channel-sketches { height:470px; }
+  .sketch-box { width:130px; min-height:68px; padding:.65rem; font-size:.68rem; }
+  .sketch-1{left:0}.sketch-2{right:0}.sketch-3{top:145px;left:0}.sketch-4{top:145px;right:0}.sketch-5{bottom:40px;left:23%}
+  .sketch-box:after { width:45px; }.sketch-1:after,.sketch-3:after{right:-40px}.sketch-2:after,.sketch-4:after{left:-40px}
+  .unfinished-center { top:285px; left:44%; }
+  .notebook-context .sticky-note { right:2%; bottom:4%; }
+  .notebook-problem,.notebook-products { grid-template-columns:1fr; gap:.7rem; padding-top:1.2rem; }
+  .number-note { min-height:125px; padding:.6rem; }.number-note:nth-child(2),.number-note:nth-child(3){transform:rotate(1deg)}
+  .number-note strong { font-size:2.7rem; }.marker-circle,.confusion-lines{display:none}.note-confusion{bottom:-28px}
+  .flow-sketch { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-top:1.5rem; }.flow-step{min-width:0;min-height:105px}.hand-arrow{display:none}
+  .objective-doodles{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1rem 0}.pilot-note{position:static;width:max-content;margin:1rem auto 0}
+  .timeline-sketch { grid-template-columns:repeat(6,1fr); row-gap:2rem; margin-top:3rem; border-top:0 }.timeline-sketch div{border-top:3px solid #315e75}.timeline-labels{display:none}.planning-notes{flex-direction:column;gap:.7rem;margin-top:2rem}.planning-notes span{padding:.65rem;text-align:center}.twelve-weeks{margin-top:1rem}
+  .paper-cut{min-height:130px;padding:.6rem}.paper-cut svg{width:32px;height:32px}.proposal-stamp{position:static;grid-column:1;font-size:.65rem;text-align:center}
+  .conclusion-map{grid-template-columns:1fr;gap:.55rem;margin-top:1rem}.subject-note{min-height:100px}.nexo-badge{width:75px;height:75px;margin:auto}.conclusion-map:before,.conclusion-map:after{display:none}.notebook-conclusion blockquote{margin-top:1.2rem;font-size:1.2rem}
+  .notebook-toolbar button span { display:none; }
   .welcome-content {
     padding-block: 2rem;
   }
@@ -803,9 +711,10 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .welcome-project,
-  .speech-card,
-  .speech-expand svg {
+  .welcome-project {
     transition: none;
   }
+  .notebook.turn-next .current,
+  .notebook.turn-previous .current { animation:notebook-fade 180ms ease both; }
+  @keyframes notebook-fade { from{opacity:1} to{opacity:0} }
 }

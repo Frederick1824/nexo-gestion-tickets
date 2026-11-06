@@ -174,6 +174,11 @@ html[data-theme="dark"] .speech-full,
 html[data-theme="dark"] .product-grid small {
   border-color: #2c4961;
 }
+html[data-theme="dark"] .notebook-stage {
+  border-color: #2d526b;
+  background: radial-gradient(circle at 50% 10%, #173d5a, #051729 68%);
+  box-shadow: 0 28px 70px #0008;
+}
 html[data-theme="dark"] .btn.ghost {
   border-color: #36536c;
   color: #d5e4ee;
