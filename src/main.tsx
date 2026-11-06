@@ -7,12 +7,16 @@ import "./styles.css";
 import "./institutional.css";
 import "./network.css";
 import "./communications.css";
+import "./theme.css";
+import { ThemeProvider } from "./theme";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <StoreProvider>
-        <App />
-      </StoreProvider>
+      <ThemeProvider>
+        <StoreProvider>
+          <App />
+        </StoreProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 );

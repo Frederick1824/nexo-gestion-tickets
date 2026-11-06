@@ -231,6 +231,11 @@ export function TechNetwork({
     resize();
     draw();
     window.addEventListener("resize", onResize, { passive: true });
+    const onThemeChange = () => {
+      refreshZones();
+      if (reducedMotion) draw();
+    };
+    window.addEventListener("nexo-theme-change", onThemeChange);
     const resizeObserver = new ResizeObserver(refreshZones);
     const landingMain = canvas.closest(".landing")?.querySelector("main");
     if (landingMain) resizeObserver.observe(landingMain);
@@ -238,6 +243,7 @@ export function TechNetwork({
       cancelAnimationFrame(frame);
       window.clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("nexo-theme-change", onThemeChange);
       resizeObserver.disconnect();
     };
   }, [intensity, variant]);

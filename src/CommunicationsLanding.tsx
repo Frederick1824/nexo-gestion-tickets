@@ -4,20 +4,27 @@ import {
   Bot,
   CalendarRange,
   CheckCircle2,
+  Check,
+  ChevronDown,
   ClipboardCheck,
+  Copy,
   FileText,
   GraduationCap,
   History,
   Mail,
   MessageCircle,
+  Mic2,
   Network,
   Phone,
   Presentation,
   Target,
   Users,
 } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { TechNetwork } from "./components/TechNetwork";
+import { presentationSpeeches } from "./presentationSpeeches";
+import { ThemeToggle } from "./theme";
 
 const academicDocument =
   "https://docs.google.com/document/d/1LcVn3_bg8quJmHDD0_5xlOt8ze6oZ4mPBTILwbK8zoY/edit?tab=t.0";
@@ -32,6 +39,18 @@ const team = [
 ];
 
 export function CommunicationsLanding() {
+  const [expandedSpeech, setExpandedSpeech] = useState<string | null>(null);
+  const [copiedSpeech, setCopiedSpeech] = useState<string | null>(null);
+
+  const copySpeech = async (number: string, speech: string) => {
+    await navigator.clipboard.writeText(speech);
+    setCopiedSpeech(number);
+    window.setTimeout(
+      () => setCopiedSpeech((current) => (current === number ? null : current)),
+      1800,
+    );
+  };
+
   return (
     <div className="landing communications">
       <TechNetwork
@@ -54,7 +73,9 @@ export function CommunicationsLanding() {
           <a href="#estrategia">Estrategia</a>
           <a href="#productos">Productos</a>
           <a href="#planificacion">Planificación</a>
+          <a href="#presentacion">Presentación</a>
         </nav>
+        <ThemeToggle />
         <Link className="subject-switch" to="/proyecto">
           <span>Sistemas y Organizaciones</span>
           <ArrowRight />
@@ -328,6 +349,82 @@ export function CommunicationsLanding() {
           </div>
         </section>
 
+        <section id="presentacion" className="section presentation-section">
+          <div className="section-tag">07 · Guion de exposición</div>
+          <div className="presentation-heading">
+            <div>
+              <h2>Nuestra presentación</h2>
+              <p className="lead">
+                Seis integrantes, seis perspectivas para comprender cómo NEXO
+                mejora la comunicación.
+              </p>
+            </div>
+            <div className="presentation-duration">
+              <Mic2 />
+              <span>Hasta 1 minuto y medio por persona</span>
+            </div>
+          </div>
+          <div className="speech-grid">
+            {presentationSpeeches.map((item) => {
+              const expanded = expandedSpeech === item.number;
+              const copied = copiedSpeech === item.number;
+              const speechId = `speech-${item.number}`;
+              return (
+                <article
+                  className={`speech-card${expanded ? " expanded" : ""}`}
+                  key={item.number}
+                >
+                  <div className="speech-card-head">
+                    <span>{item.number}</span>
+                    <Mic2 aria-hidden="true" />
+                  </div>
+                  <h3>{item.name}</h3>
+                  <b>{item.topic}</b>
+                  <p className="speech-summary">{item.summary}</p>
+                  <div className="speech-actions">
+                    <button
+                      type="button"
+                      className="speech-expand"
+                      onClick={() =>
+                        setExpandedSpeech(expanded ? null : item.number)
+                      }
+                      aria-expanded={expanded}
+                      aria-controls={speechId}
+                    >
+                      Ver mi intervención
+                      <ChevronDown aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      className="speech-copy"
+                      onClick={() => copySpeech(item.number, item.speech)}
+                      aria-label={`Copiar texto de ${item.name}`}
+                    >
+                      {copied ? (
+                        <Check aria-hidden="true" />
+                      ) : (
+                        <Copy aria-hidden="true" />
+                      )}
+                      {copied ? "Copiado" : "Copiar texto"}
+                    </button>
+                  </div>
+                  <div
+                    id={speechId}
+                    className="speech-full"
+                    hidden={!expanded}
+                  >
+                    <div className="speech-label">INTERVENCIÓN COMPLETA</div>
+                    <p>{item.speech}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <div className="copy-status" aria-live="polite">
+            {copiedSpeech ? "Intervención copiada al portapapeles." : ""}
+          </div>
+        </section>
+
         <section id="documentacion" className="comms-documentation">
           <BookOpen />
           <div>
@@ -349,7 +446,7 @@ export function CommunicationsLanding() {
         </section>
 
         <section id="equipo" className="section comms-team">
-          <div className="section-tag">07 · Equipo y créditos</div>
+          <div className="section-tag">08 · Equipo y créditos</div>
           <div className="team-intro">
             <div>
               <h2>Ctrl+Estudio</h2>

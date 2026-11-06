@@ -40,6 +40,7 @@ import { areas, priorities, statuses, technicians } from "./data";
 import { event, useStore } from "./store";
 import { TechNetwork } from "./components/TechNetwork";
 import { CommunicationsLanding } from "./CommunicationsLanding";
+import { ThemeToggle } from "./theme";
 import type { Area, NewTicket, Priority, Ticket } from "./types";
 const fmt = (x: string) =>
   new Intl.DateTimeFormat("es-AR", {
@@ -56,6 +57,7 @@ function Welcome() {
   return (
     <main className="welcome-screen">
       <TechNetwork intensity="hero" />
+      <ThemeToggle className="welcome-theme-toggle" />
       <div className="welcome-glow" aria-hidden="true" />
       <section className="welcome-content">
         <div className="welcome-mark" aria-hidden="true">
@@ -142,6 +144,7 @@ function Landing() {
             Portada
           </Link>
         </nav>
+        <ThemeToggle />
         <Link className="subject-switch" to="/comunicacionales">
           <span>Comunicacionales II</span>
           <ArrowRight />
@@ -568,6 +571,7 @@ function Shell({ children }: { children: ReactNode }) {
               {mode === "tour" ? "Recorrido guiado" : "Escenario principal"}
             </b>
           </div>
+          <ThemeToggle className="demo-theme-toggle" />
           <label>
             Rol simulado
             <select

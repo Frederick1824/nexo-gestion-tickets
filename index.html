@@ -9,6 +9,19 @@
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>NEXO | Gestión y trazabilidad</title>
+    <script>
+      (() => {
+        const stored = localStorage.getItem("nexo-theme");
+        const theme =
+          stored === "light" || stored === "dark"
+            ? stored
+            : matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

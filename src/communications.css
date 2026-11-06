@@ -480,6 +480,157 @@
   color: #fff;
   background: linear-gradient(120deg, #075b98, #087e92);
 }
+.presentation-section {
+  background: rgba(238, 247, 251, 0.88);
+}
+.presentation-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.presentation-heading h2 {
+  margin-bottom: 0.8rem;
+}
+.presentation-heading .lead {
+  margin-bottom: 0;
+}
+.presentation-duration {
+  display: flex;
+  max-width: 260px;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #bad5e4;
+  border-radius: 12px;
+  color: #155f91;
+  background: #f8fdff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.presentation-duration svg {
+  flex: 0 0 auto;
+  color: #1487bd;
+}
+.speech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.speech-card {
+  display: flex;
+  min-height: 350px;
+  flex-direction: column;
+  padding: 1.5rem;
+  border: 1px solid #c5d9e6;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 35px #0d2c4710;
+  transition:
+    transform 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+.speech-card:hover {
+  transform: translateY(-2px);
+  border-color: #73bfd4;
+  box-shadow: 0 20px 42px #0d2c4718;
+}
+.speech-card.expanded {
+  border-color: #2e9fc4;
+}
+.speech-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.speech-card-head span {
+  color: #1780b8;
+  font: 800 0.75rem Manrope;
+  letter-spacing: 0.12em;
+}
+.speech-card-head svg {
+  width: 22px;
+  color: #2b9fc0;
+}
+.speech-card h3 {
+  margin: 2rem 0 0.35rem;
+  color: #0c2340;
+  font: 750 1.35rem Manrope;
+}
+.speech-card > b {
+  color: #1678a8;
+  font-size: 0.82rem;
+}
+.speech-summary {
+  margin: 1rem 0 1.5rem;
+  color: #627488;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.speech-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+.speech-actions button {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 9px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.speech-actions svg {
+  width: 16px;
+}
+.speech-expand {
+  border: 0;
+  color: #fff;
+  background: linear-gradient(135deg, #176fc0, #168fb8);
+}
+.speech-expand svg {
+  transition: transform 0.2s;
+}
+.speech-card.expanded .speech-expand svg {
+  transform: rotate(180deg);
+}
+.speech-copy {
+  border: 1px solid #bfd2df;
+  color: #174b71;
+  background: #f6fbfe;
+}
+.speech-full {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #d9e5ec;
+}
+.speech-label {
+  color: #1882b0;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+.speech-full p {
+  margin-bottom: 0;
+  color: #314a60;
+  font-size: 0.98rem;
+  line-height: 1.82;
+}
+.copy-status {
+  min-height: 1.2rem;
+  margin-top: 1rem;
+  color: #176f96;
+  font-size: 0.75rem;
+  text-align: right;
+}
 .comms-documentation > svg {
   width: 46px;
   height: 46px;
@@ -559,6 +710,9 @@
   .objective-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .speech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media (max-width: 720px) {
   .welcome-projects,
@@ -568,6 +722,19 @@
   .objective-grid,
   .week-grid,
   .comms-team-grid {
+    grid-template-columns: 1fr;
+  }
+  .presentation-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .speech-grid {
+    grid-template-columns: 1fr;
+  }
+  .speech-card {
+    min-height: 0;
+  }
+  .speech-actions {
     grid-template-columns: 1fr;
   }
   .welcome-content {
@@ -636,7 +803,9 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .welcome-project {
+  .welcome-project,
+  .speech-card,
+  .speech-expand svg {
     transition: none;
   }
 }
